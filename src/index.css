@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+/* ───────────── ZYNX design tokens ───────────── */
+@theme {
+  --color-brand: #1dcb57;
+  --color-brand-deep: #0e652b;
+  --color-ink: #080a09;
+  --color-surface: #161b18;
+  --color-surface-2: #0f1311;
+  --color-muted: #a5ada7;
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-hero-progress: hero-progress linear forwards;
+  --animate-dash: dash 1.6s linear infinite;
+  --animate-spin-slow: spin 38s linear infinite;
+  --animate-spin-slower: spin 60s linear infinite reverse;
+  --animate-ping-soft: ping-soft 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+
+  @keyframes hero-progress {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+  @keyframes dash {
+    to { stroke-dashoffset: -24; }
+  }
+  @keyframes ping-soft {
+    0% { transform: scale(1); opacity: 0.55; }
+    80%, 100% { transform: scale(2.4); opacity: 0; }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background-color: var(--color-ink);
+    color: #fff;
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--color-brand);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  section[id] {
+    scroll-margin-top: 84px;
+  }
+}
+
+/* ───────────── utilities ───────────── */
+@utility text-gradient {
+  background-image: linear-gradient(100deg, #1dcb57 10%, #7cf0a2 55%, #1dcb57 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-dots {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+@utility bg-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+@utility glass {
+  background: linear-gradient(180deg, rgba(22, 27, 24, 0.78), rgba(15, 19, 17, 0.72));
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@utility mask-fade-b {
+  mask-image: linear-gradient(to bottom, #000 60%, transparent);
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
